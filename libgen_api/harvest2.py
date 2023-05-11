@@ -6,7 +6,7 @@ from libgen_api import LibgenSearch
 import zipfile
 import threading
 from ebooklib import epub
-from PyPDF2 import PdfFileReader
+from PyPDF2 import PdfReader
 # from pdfminer.high_level import extract_text
 from bs4 import BeautifulSoup
 import json
@@ -43,15 +43,13 @@ def extract_epub_content(file_path):
             content.append(BeautifulSoup(item.get_content(), 'html.parser').get_text())
     return '\n'.join(content)
 
-
 def extract_pdf_content(file_path):
     with open(file_path, 'rb') as f:
-        pdf = PdfFileReader()
+        pdf = PdfReader(f)
         content = []
-        for i in range(pdf.getNumPages()):
-            content.append(pdf.getPage(i).extract_text())
+        for i in range(len(pdf.pages)):
+            content.append(pdf.pages[i].extract_text())
     return ''.join(content)
-
 
 
 def extract_epub_metadata(file_path):

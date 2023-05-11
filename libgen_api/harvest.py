@@ -7,7 +7,7 @@ import time
 from libgen_api import LibgenSearch
 import zipfile
 from ebooklib import epub
-from PyPDF2 import PdfFileReader
+from PyPDF2 import PdfReader
 import json
 
 
@@ -70,7 +70,7 @@ def extract_epub_content(file_path):
 
 def extract_pdf_content(file_path):
     with open(file_path, 'rb') as f:
-        pdf = PdfFileReader()
+        pdf = PdfReader()
         content = []
         for i in range(pdf.getNumPages()):
             content.append(pdf.getPage(i).extract_text())
