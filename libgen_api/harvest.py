@@ -78,6 +78,7 @@ def extract_pdf_content(file_path):
 
 
 
+print(extract_pdf_content)
 
 
 def extract_epub_metadata(file_path):
