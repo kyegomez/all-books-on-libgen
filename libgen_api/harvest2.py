@@ -13,7 +13,7 @@ import json
 import gzip
 
 
-def search_science_books(query, num_results=100):
+def search_science_books(query, num_results=1000):
     s = LibgenSearch()
     results = s.search_title(query)
     science_books = [book for book in results if "science" in book["Title"].lower()]
