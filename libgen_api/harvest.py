@@ -2,6 +2,8 @@
 #download books -> analyze them -> organize in a structured format[title, authors, content, metadata, published] -> each book with all data formats => json
 import os
 import requests
+from requests.exceptions import RequestException
+import time
 from libgen_api import LibgenSearch
 import zipfile
 from ebooklib import epub
@@ -43,10 +45,19 @@ def search_science_books(query, num_results=100):
 
 # harvestor 
 
-def download_book(url, save_path):
-    response = requests.get(url)
-    with open(save_path, 'wb') as f:
-        f.write(response.content)
+def download_book(url, save_path, max_retries=3, timeout=10):
+    retries = 0
+    while retries < max_retries:
+        try: 
+            response = requests.get(url, timeout=timeout)
+            with open(save_path, 'wb') as f:
+                f.write(response.content)
+            return
+        except RequestException:
+            print(f"Download failed, retrying {retries + 1}/{max_retries}")
+            retries += 1
+            time.sleep(2) #wait for 2 seconds before retrying
+    print(f"Failed to download {url} after {max_retries} retries.")
 
 def extract_epub_content(file_path):
     book = epub.read_epub(file_path)
