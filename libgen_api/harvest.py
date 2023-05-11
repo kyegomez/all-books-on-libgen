@@ -10,10 +10,12 @@ import json
 
 
 
-def search_science_books(query, num_results=1000000):
+def search_science_books(query, num_results=100):
     s = LibgenSearch()
     results = s.search_title(query)
+    print(results)
     science_books = [book for book in results if "science" in book["Title"].lower()]
+    print(science_books)
     return science_books[:num_results]
 
 # books = search_science_books("science")
@@ -78,6 +80,8 @@ def extract_epub_metadata(file_path):
         'content': extract_epub_content(file_path),
     }
 
+print(extract_epub_metadata)
+
 def extract_pdf_metadata(file_path):
     with open(file_path, 'rb') as f:
         pdf = PdfFileReader(f)
@@ -90,7 +94,8 @@ def extract_pdf_metadata(file_path):
             'published': info.creationDate if info.creationDate else '',
             'content': extract_pdf_content(file_path),
         }
-    
+
+print(extract_pdf_metadata)    
 
 
 def extract_metadata(file_path, extension):
@@ -134,6 +139,7 @@ for book in books:
             "Extension": book["Extension"],
             **metadata
         }
+        print(structured_data)
 
         structured_data_file = os.path.join(structured_data_directory, f"{book['ID']}.json")
         with open(structured_data_file, 'w', encoding='utf-8') as f:
