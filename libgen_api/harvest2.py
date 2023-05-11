@@ -50,7 +50,7 @@ def extract_pdf_content(file_path):
         for i in range(len(pdf.pages)):
             content.append(pdf.pages[i].extract_text())
         print(content)
-        
+
     return ''.join(content)
 
 
@@ -68,7 +68,7 @@ def extract_epub_metadata(file_path):
 
 def extract_pdf_metadata(file_path):
     with open(file_path, 'rb') as f:
-        pdf = PdfFileReader(f)
+        pdf = PdfReader(f)
         info = pdf.getDocumentInfo()
         return {
             'title': info.title,
