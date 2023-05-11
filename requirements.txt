@@ -1,0 +1,4 @@
+PyPDF2
+ebooklib
+libgen-api
+bs4
