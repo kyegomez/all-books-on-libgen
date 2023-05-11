@@ -49,6 +49,8 @@ def extract_pdf_content(file_path):
         content = []
         for i in range(len(pdf.pages)):
             content.append(pdf.pages[i].extract_text())
+        print(content)
+        
     return ''.join(content)
 
 
