@@ -8,28 +8,7 @@ from ebooklib import epub
 from PyPDF2 import PdfFileReader
 import json
 
-# def download_book(url, save_path):
-#     response = requests.get(url)
-#     with open(save_path, 'wb') as f:
-#         f.write(response.content)
 
-# s = LibgenSearch()
-# title_filters = {"Language": "English", "Extension": "epub"}
-# titles = s.search_title_filtered("Pride and Prejudice", title_filters, exact_match=True)
-
-# download_directory = "downloads"
-# os.makedirs(download_directory, exist_ok=True)
-
-# for title in titles:
-#     download_links = s.resolve_download_links(title)
-#     download_url = download_links.get("GET")
-#     if download_url:
-#         save_path = os.path.join(download_directory, f"{title['ID']}.{title['Extension']}")
-#         download_book(download_url, save_path)
-#         print(f"Downloaded {title['Title']} by {title['Author']} to {save_path}")
-
-
-#download all books
 
 def search_science_books(query, num_results=1000000):
     s = LibgenSearch()
@@ -123,7 +102,7 @@ def extract_metadata(file_path, extension):
         return {}
 
 
-# s = LibgenSearch()
+s = LibgenSearch()
 books = search_science_books("science")
 
 download_directory = "downloads"
